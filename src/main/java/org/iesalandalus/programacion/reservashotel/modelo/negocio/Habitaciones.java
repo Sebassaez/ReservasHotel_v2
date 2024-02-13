@@ -66,4 +66,8 @@ public class Habitaciones {
         public int getTamano() {
             return listaHabitaciones.size();
         }
+        private List<Habitacion> copiaProfundaHabitaciones(List<Habitacion> habitaciones) {
+        return new ArrayList<>(habitaciones);
+    }
+
 }
