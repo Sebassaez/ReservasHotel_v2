@@ -5,6 +5,7 @@ import org.iesalandalus.programacion.reservashotel.modelo.dominio.Huesped;
 
 import javax.naming.OperationNotSupportedException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class Huespedes {
@@ -37,7 +38,8 @@ public class Huespedes {
         if (huesped == null) {
             throw new IllegalArgumentException("No se puede buscar un huésped nulo.");
         }
-        for (Huesped h : listaHuespedes) {
+        for (Iterator<Huesped> it = listaHuespedes.iterator(); it.hasNext(); ) {
+            Huesped h = it.next();
             if (h.equals(huesped)) {
                 return h;
             }
@@ -49,7 +51,15 @@ public class Huespedes {
         if (huesped == null) {
             throw new IllegalArgumentException("No se puede borrar un huésped nulo.");
         }
-        listaHuespedes.remove(huesped);
+        Iterator<Huesped> it = listaHuespedes.iterator();
+        while (it.hasNext()) {
+            Huesped h = it.next();
+            if (h.equals(huesped)) {
+                it.remove();
+                return;
+            }
+        }
     }
 }
+
 

@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 public class Reservas {
@@ -38,7 +39,8 @@ public class Reservas {
         if (reserva == null) {
             throw new IllegalArgumentException("No se puede buscar una reserva nula.");
         }
-        for (Reserva res : listaReservas) {
+        for (Iterator<Reserva> it = listaReservas.iterator(); it.hasNext();) {
+            Reserva res = it.next();
             if (res.equals(reserva)) {
                 return res;
             }
@@ -50,7 +52,14 @@ public class Reservas {
         if (reserva == null) {
             throw new IllegalArgumentException("No se puede borrar una reserva nula.");
         }
-        listaReservas.remove(reserva);
+        Iterator<Reserva> it = listaReservas.iterator();
+        while (it.hasNext()) {
+            Reserva res = it.next();
+            if (res.equals(reserva)) {
+                it.remove();
+                return;
+            }
+        }
     }
 
     public List<Reserva> getReservas(Huesped huesped) {
@@ -59,7 +68,9 @@ public class Reservas {
         }
 
         List<Reserva> reservasHuesped = new ArrayList<>();
-        for (Reserva reserva : listaReservas) {
+        Iterator<Reserva> it = listaReservas.iterator();
+        while (it.hasNext()) {
+            Reserva reserva = it.next();
             if (reserva.getHuesped().equals(huesped)) {
                 reservasHuesped.add(reserva);
             }
@@ -73,7 +84,9 @@ public class Reservas {
         }
 
         List<Reserva> reservasTipoHabitacion = new ArrayList<>();
-        for (Reserva reserva : listaReservas) {
+        Iterator<Reserva> it = listaReservas.iterator();
+        while (it.hasNext()) {
+            Reserva reserva = it.next();
             if (reserva.getHabitacion().getTipoHabitacion().equals(tipoHabitacion)) {
                 reservasTipoHabitacion.add(reserva);
             }
@@ -88,7 +101,9 @@ public class Reservas {
 
         List<Reserva> reservasFuturas = new ArrayList<>();
         LocalDate hoy = LocalDate.now();
-        for (Reserva reserva : listaReservas) {
+        Iterator<Reserva> it = listaReservas.iterator();
+        while (it.hasNext()) {
+            Reserva reserva = it.next();
             if (reserva.getHabitacion().equals(habitacion) && reserva.getFechaInicioReserva().isAfter(hoy)) {
                 reservasFuturas.add(reserva);
             }
